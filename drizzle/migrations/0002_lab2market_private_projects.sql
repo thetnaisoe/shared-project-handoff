@@ -1,0 +1,11 @@
+CREATE TABLE public.invention_projects (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id uuid NOT NULL DEFAULT auth.uid(), invention_name text NOT NULL, inputs jsonb NOT NULL DEFAULT '{}'::jsonb, analysis jsonb, finances jsonb NOT NULL DEFAULT '{}'::jsonb, readiness jsonb NOT NULL DEFAULT '{}'::jsonb, experiment_statuses jsonb NOT NULL DEFAULT '{}'::jsonb, status text NOT NULL DEFAULT 'Draft' CHECK (status IN ('Draft','Researching Market','Analysing Invention','Completed','Failed','Blocked')), error_message text, is_demo boolean NOT NULL DEFAULT false, created_at timestamptz NOT NULL DEFAULT now());
+GRANT SELECT,INSERT,UPDATE,DELETE ON public.invention_projects TO authenticated;
+GRANT ALL ON public.invention_projects TO service_role;
+ALTER TABLE public.invention_projects ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Own invention projects" ON public.invention_projects FOR ALL TO authenticated USING (user_id=auth.uid()) WITH CHECK (user_id=auth.uid());
+CREATE INDEX invention_projects_owner ON public.invention_projects(user_id,created_at DESC);
+CREATE TABLE public.invention_demo_templates (id text PRIMARY KEY, invention_name text NOT NULL, inputs jsonb NOT NULL, analysis jsonb NOT NULL, finances jsonb NOT NULL, readiness jsonb NOT NULL);
+GRANT SELECT ON public.invention_demo_templates TO anon,authenticated;
+GRANT ALL ON public.invention_demo_templates TO service_role;
+ALTER TABLE public.invention_demo_templates ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Read public demonstration" ON public.invention_demo_templates FOR SELECT TO anon,authenticated USING (id='facade-drone');

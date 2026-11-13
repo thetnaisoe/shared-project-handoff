@@ -1,0 +1,10 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { Plus, ArrowUpRight } from "lucide-react";
+import { projectsQuery, getReadiness } from "@/lib/lab/data";
+import { scoreReadiness } from "@/lib/lab/domain";
+import { pageHead } from "@/lib/head";
+import { Button } from "@/components/ui/button";
+import { Empty, Label } from "@/components/lab/project-views";
+export const Route = createFileRoute("/_authenticated/projects/")({head:pageHead("My projects","Your invention assessment history and commercial evidence."),component:Projects});
+function Projects(){const q=useQuery(projectsQuery);return <><div className="mb-8 flex flex-wrap items-center justify-between gap-4"><div><p className="lab-eyebrow">INVENTION PORTFOLIO</p><h1 className="mt-2 text-3xl font-semibold">My projects</h1></div><Button asChild className="gap-2"><Link to="/new-assessment"><Plus className="h-4 w-4"/>New assessment</Link></Button></div>{q.isPending?<p>Loading…</p>:q.error?<p role="alert">{q.error.message}</p>:!q.data?.length?<Empty>Start with your first invention.</Empty>:<div className="grid gap-4 md:grid-cols-2">{q.data.map(p=><Link key={p.id} to="/projects/$projectId" params={{projectId:p.id}} className="rounded-lg border bg-card p-6 transition-colors hover:border-primary"><div className="flex items-center justify-between"><Label tone={p.is_demo?"warning":"neutral"}>{p.is_demo?"DEMO":p.status}</Label><ArrowUpRight className="h-4 w-4 text-muted-foreground"/></div><h2 className="mt-5 text-lg font-semibold">{p.invention_name}</h2><p className="mt-2 text-xs text-muted-foreground">{String((p.inputs as Record<string,unknown>)["target_industry"]||"Industry not specified")}</p><div className="mt-6 flex items-center justify-between border-t pt-4"><span className="text-xs text-muted-foreground">{new Date(p.created_at).toLocaleDateString()}</span><span className="text-sm font-semibold text-primary">{p.status==="Completed"?`${scoreReadiness(getReadiness(p)).total}/100 readiness`:p.status}</span></div></Link>)}</div>}</>}

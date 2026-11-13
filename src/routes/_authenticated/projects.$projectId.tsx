@@ -1,0 +1,12 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
+import { toast } from "sonner";
+import { projectsQuery } from "@/lib/lab/data";
+import { analyseInvention } from "@/lib/lab/analysis.functions";
+import { pageHead } from "@/lib/head";
+import { Button } from "@/components/ui/button";
+import { ProjectView, VIEW_TITLES, type View } from "@/components/lab/project-views";
+export const Route=createFileRoute("/_authenticated/projects/$projectId")({head:pageHead("Invention assessment","Commercial evidence, risks and next steps for your invention."),component:ProjectPage});
+function ProjectPage(){const{id}= {id:Route.useParams().projectId};const[view,setView]=useState<View>("assessment");const[busy,setBusy]=useState(false);const qc=useQueryClient();const q=useQuery({...projectsQuery,refetchInterval:busy?1500:false});const call=useServerFn(analyseInvention);const p=q.data?.find(p=>p.id===id);async function run(){setBusy(true);try{const result=await call({data:{id}});if(!result.ok)toast.error(result.error||"Analysis failed");}catch(e){toast.error(e instanceof Error?e.message:"Analysis failed");}finally{setBusy(false);qc.invalidateQueries({queryKey:["invention-projects"]});}}return <>{!p?<p>{q.isPending?"Loading project…":"Project not found."}</p>:<><div className="mb-6"><p className="lab-eyebrow">INVENTION ASSESSMENT</p><h1 className="mt-2 break-words text-3xl font-semibold">{p.invention_name}</h1></div>{p.status!=="Completed"?<div className="border-t py-8"><p role="status" className="text-lg font-semibold">{busy?p.status==="Draft"?"Starting analysis…":p.status:p.status}</p>{p.error_message&&<p role="alert" className="mt-3 text-sm text-destructive">{p.error_message}</p>}<p className="mt-3 text-sm text-muted-foreground">Your invention is saved. Analysis stages update when processing actually changes.</p><Button className="mt-6" disabled={busy||p.status==="Blocked"} onClick={run}>{busy?"Analysing…":"Start analysis"}</Button></div>:<><div className="mb-7 flex flex-wrap gap-1 border-b pb-3 no-print">{(Object.keys(VIEW_TITLES) as View[]).filter(v=>v!=="financial").map(v=><Button key={v} size="sm" variant={view===v?"secondary":"ghost"} onClick={()=>setView(v)}>{VIEW_TITLES[v]}</Button>)}</div><ProjectView project={p} view={view}/></>}</>}</>}

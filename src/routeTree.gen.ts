@@ -10,33 +10,342 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as DemoRouteImport } from './routes/demo'
+import { Route as EvidenceRouteImport } from './routes/evidence'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedAssessmentRouteImport } from './routes/_authenticated/assessment'
+import { Route as AuthenticatedCommercialReportsRouteImport } from './routes/_authenticated/commercial-reports'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedExperimentPlannerRouteImport } from './routes/_authenticated/experiment-planner'
+import { Route as AuthenticatedFinancialEstimatorRouteImport } from './routes/_authenticated/financial-estimator'
+import { Route as AuthenticatedIntelligenceRouteImport } from './routes/_authenticated/intelligence'
+import { Route as AuthenticatedJobsRouteImport } from './routes/_authenticated/jobs'
+import { Route as AuthenticatedMarketDataRouteImport } from './routes/_authenticated/market-data'
+import { Route as AuthenticatedMarketResearchRouteImport } from './routes/_authenticated/market-research'
+import { Route as AuthenticatedNewAssessmentRouteImport } from './routes/_authenticated/new-assessment'
+import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedQuotationRouteImport } from './routes/_authenticated/quotation'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
+import { Route as AuthenticatedRiskAnalysisRouteImport } from './routes/_authenticated/risk-analysis'
+import { Route as AuthenticatedSchedulingRouteImport } from './routes/_authenticated/scheduling'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as RunsIdRouteImport } from './routes/runs.$id'
+import { Route as AuthenticatedJobsIndexRouteImport } from './routes/_authenticated/jobs.index'
+import { Route as AuthenticatedJobsJobIdRouteImport } from './routes/_authenticated/jobs.$jobId'
+import { Route as AuthenticatedProjectsIndexRouteImport } from './routes/_authenticated/projects.index'
+import { Route as AuthenticatedProjectsProjectIdRouteImport } from './routes/_authenticated/projects.$projectId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvidenceRoute = EvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAssessmentRoute = AuthenticatedAssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCommercialReportsRoute =
+  AuthenticatedCommercialReportsRouteImport.update({
+    id: '/commercial-reports',
+    path: '/commercial-reports',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedExperimentPlannerRoute =
+  AuthenticatedExperimentPlannerRouteImport.update({
+    id: '/experiment-planner',
+    path: '/experiment-planner',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedFinancialEstimatorRoute =
+  AuthenticatedFinancialEstimatorRouteImport.update({
+    id: '/financial-estimator',
+    path: '/financial-estimator',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedIntelligenceRoute =
+  AuthenticatedIntelligenceRouteImport.update({
+    id: '/intelligence',
+    path: '/intelligence',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedJobsRoute = AuthenticatedJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMarketDataRoute = AuthenticatedMarketDataRouteImport.update({
+  id: '/market-data',
+  path: '/market-data',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMarketResearchRoute =
+  AuthenticatedMarketResearchRouteImport.update({
+    id: '/market-research',
+    path: '/market-research',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedNewAssessmentRoute =
+  AuthenticatedNewAssessmentRouteImport.update({
+    id: '/new-assessment',
+    path: '/new-assessment',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedQuotationRoute = AuthenticatedQuotationRouteImport.update({
+  id: '/quotation',
+  path: '/quotation',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedRiskAnalysisRoute =
+  AuthenticatedRiskAnalysisRouteImport.update({
+    id: '/risk-analysis',
+    path: '/risk-analysis',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedSchedulingRoute = AuthenticatedSchedulingRouteImport.update({
+  id: '/scheduling',
+  path: '/scheduling',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const RunsIdRoute = RunsIdRouteImport.update({
+  id: '/runs/$id',
+  path: '/runs/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedJobsIndexRoute = AuthenticatedJobsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedJobsRoute,
+} as any)
+const AuthenticatedJobsJobIdRoute = AuthenticatedJobsJobIdRouteImport.update({
+  id: '/$jobId',
+  path: '/$jobId',
+  getParentRoute: () => AuthenticatedJobsRoute,
+} as any)
+const AuthenticatedProjectsIndexRoute =
+  AuthenticatedProjectsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedProjectsRoute,
+  } as any)
+const AuthenticatedProjectsProjectIdRoute =
+  AuthenticatedProjectsProjectIdRouteImport.update({
+    id: '/$projectId',
+    path: '/$projectId',
+    getParentRoute: () => AuthenticatedProjectsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/demo': typeof DemoRoute
+  '/evidence': typeof EvidenceRoute
+  '/login': typeof LoginRoute
+  '/assessment': typeof AuthenticatedAssessmentRoute
+  '/commercial-reports': typeof AuthenticatedCommercialReportsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/experiment-planner': typeof AuthenticatedExperimentPlannerRoute
+  '/financial-estimator': typeof AuthenticatedFinancialEstimatorRoute
+  '/intelligence': typeof AuthenticatedIntelligenceRoute
+  '/jobs': typeof AuthenticatedJobsRouteWithChildren
+  '/market-data': typeof AuthenticatedMarketDataRoute
+  '/market-research': typeof AuthenticatedMarketResearchRoute
+  '/new-assessment': typeof AuthenticatedNewAssessmentRoute
+  '/projects': typeof AuthenticatedProjectsRouteWithChildren
+  '/quotation': typeof AuthenticatedQuotationRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/risk-analysis': typeof AuthenticatedRiskAnalysisRoute
+  '/scheduling': typeof AuthenticatedSchedulingRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/runs/$id': typeof RunsIdRoute
+  '/jobs/$jobId': typeof AuthenticatedJobsJobIdRoute
+  '/projects/$projectId': typeof AuthenticatedProjectsProjectIdRoute
+  '/jobs/': typeof AuthenticatedJobsIndexRoute
+  '/projects/': typeof AuthenticatedProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/demo': typeof DemoRoute
+  '/evidence': typeof EvidenceRoute
+  '/login': typeof LoginRoute
+  '/assessment': typeof AuthenticatedAssessmentRoute
+  '/commercial-reports': typeof AuthenticatedCommercialReportsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/experiment-planner': typeof AuthenticatedExperimentPlannerRoute
+  '/financial-estimator': typeof AuthenticatedFinancialEstimatorRoute
+  '/intelligence': typeof AuthenticatedIntelligenceRoute
+  '/market-data': typeof AuthenticatedMarketDataRoute
+  '/market-research': typeof AuthenticatedMarketResearchRoute
+  '/new-assessment': typeof AuthenticatedNewAssessmentRoute
+  '/quotation': typeof AuthenticatedQuotationRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/risk-analysis': typeof AuthenticatedRiskAnalysisRoute
+  '/scheduling': typeof AuthenticatedSchedulingRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/runs/$id': typeof RunsIdRoute
+  '/jobs/$jobId': typeof AuthenticatedJobsJobIdRoute
+  '/projects/$projectId': typeof AuthenticatedProjectsProjectIdRoute
+  '/jobs': typeof AuthenticatedJobsIndexRoute
+  '/projects': typeof AuthenticatedProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/demo': typeof DemoRoute
+  '/evidence': typeof EvidenceRoute
+  '/login': typeof LoginRoute
+  '/_authenticated/assessment': typeof AuthenticatedAssessmentRoute
+  '/_authenticated/commercial-reports': typeof AuthenticatedCommercialReportsRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/experiment-planner': typeof AuthenticatedExperimentPlannerRoute
+  '/_authenticated/financial-estimator': typeof AuthenticatedFinancialEstimatorRoute
+  '/_authenticated/intelligence': typeof AuthenticatedIntelligenceRoute
+  '/_authenticated/jobs': typeof AuthenticatedJobsRouteWithChildren
+  '/_authenticated/market-data': typeof AuthenticatedMarketDataRoute
+  '/_authenticated/market-research': typeof AuthenticatedMarketResearchRoute
+  '/_authenticated/new-assessment': typeof AuthenticatedNewAssessmentRoute
+  '/_authenticated/projects': typeof AuthenticatedProjectsRouteWithChildren
+  '/_authenticated/quotation': typeof AuthenticatedQuotationRoute
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
+  '/_authenticated/risk-analysis': typeof AuthenticatedRiskAnalysisRoute
+  '/_authenticated/scheduling': typeof AuthenticatedSchedulingRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/runs/$id': typeof RunsIdRoute
+  '/_authenticated/jobs/$jobId': typeof AuthenticatedJobsJobIdRoute
+  '/_authenticated/projects/$projectId': typeof AuthenticatedProjectsProjectIdRoute
+  '/_authenticated/jobs/': typeof AuthenticatedJobsIndexRoute
+  '/_authenticated/projects/': typeof AuthenticatedProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/demo'
+    | '/evidence'
+    | '/login'
+    | '/assessment'
+    | '/commercial-reports'
+    | '/dashboard'
+    | '/experiment-planner'
+    | '/financial-estimator'
+    | '/intelligence'
+    | '/jobs'
+    | '/market-data'
+    | '/market-research'
+    | '/new-assessment'
+    | '/projects'
+    | '/quotation'
+    | '/reports'
+    | '/risk-analysis'
+    | '/scheduling'
+    | '/settings'
+    | '/runs/$id'
+    | '/jobs/$jobId'
+    | '/projects/$projectId'
+    | '/jobs/'
+    | '/projects/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/demo'
+    | '/evidence'
+    | '/login'
+    | '/assessment'
+    | '/commercial-reports'
+    | '/dashboard'
+    | '/experiment-planner'
+    | '/financial-estimator'
+    | '/intelligence'
+    | '/market-data'
+    | '/market-research'
+    | '/new-assessment'
+    | '/quotation'
+    | '/reports'
+    | '/risk-analysis'
+    | '/scheduling'
+    | '/settings'
+    | '/runs/$id'
+    | '/jobs/$jobId'
+    | '/projects/$projectId'
+    | '/jobs'
+    | '/projects'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/demo'
+    | '/evidence'
+    | '/login'
+    | '/_authenticated/assessment'
+    | '/_authenticated/commercial-reports'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/experiment-planner'
+    | '/_authenticated/financial-estimator'
+    | '/_authenticated/intelligence'
+    | '/_authenticated/jobs'
+    | '/_authenticated/market-data'
+    | '/_authenticated/market-research'
+    | '/_authenticated/new-assessment'
+    | '/_authenticated/projects'
+    | '/_authenticated/quotation'
+    | '/_authenticated/reports'
+    | '/_authenticated/risk-analysis'
+    | '/_authenticated/scheduling'
+    | '/_authenticated/settings'
+    | '/runs/$id'
+    | '/_authenticated/jobs/$jobId'
+    | '/_authenticated/projects/$projectId'
+    | '/_authenticated/jobs/'
+    | '/_authenticated/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  DemoRoute: typeof DemoRoute
+  EvidenceRoute: typeof EvidenceRoute
+  LoginRoute: typeof LoginRoute
+  RunsIdRoute: typeof RunsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +357,261 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evidence': {
+      id: '/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof EvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/assessment': {
+      id: '/_authenticated/assessment'
+      path: '/assessment'
+      fullPath: '/assessment'
+      preLoaderRoute: typeof AuthenticatedAssessmentRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/commercial-reports': {
+      id: '/_authenticated/commercial-reports'
+      path: '/commercial-reports'
+      fullPath: '/commercial-reports'
+      preLoaderRoute: typeof AuthenticatedCommercialReportsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/experiment-planner': {
+      id: '/_authenticated/experiment-planner'
+      path: '/experiment-planner'
+      fullPath: '/experiment-planner'
+      preLoaderRoute: typeof AuthenticatedExperimentPlannerRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/financial-estimator': {
+      id: '/_authenticated/financial-estimator'
+      path: '/financial-estimator'
+      fullPath: '/financial-estimator'
+      preLoaderRoute: typeof AuthenticatedFinancialEstimatorRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/intelligence': {
+      id: '/_authenticated/intelligence'
+      path: '/intelligence'
+      fullPath: '/intelligence'
+      preLoaderRoute: typeof AuthenticatedIntelligenceRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/jobs': {
+      id: '/_authenticated/jobs'
+      path: '/jobs'
+      fullPath: '/jobs'
+      preLoaderRoute: typeof AuthenticatedJobsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/market-data': {
+      id: '/_authenticated/market-data'
+      path: '/market-data'
+      fullPath: '/market-data'
+      preLoaderRoute: typeof AuthenticatedMarketDataRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/market-research': {
+      id: '/_authenticated/market-research'
+      path: '/market-research'
+      fullPath: '/market-research'
+      preLoaderRoute: typeof AuthenticatedMarketResearchRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/new-assessment': {
+      id: '/_authenticated/new-assessment'
+      path: '/new-assessment'
+      fullPath: '/new-assessment'
+      preLoaderRoute: typeof AuthenticatedNewAssessmentRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/projects': {
+      id: '/_authenticated/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AuthenticatedProjectsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/quotation': {
+      id: '/_authenticated/quotation'
+      path: '/quotation'
+      fullPath: '/quotation'
+      preLoaderRoute: typeof AuthenticatedQuotationRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/risk-analysis': {
+      id: '/_authenticated/risk-analysis'
+      path: '/risk-analysis'
+      fullPath: '/risk-analysis'
+      preLoaderRoute: typeof AuthenticatedRiskAnalysisRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/scheduling': {
+      id: '/_authenticated/scheduling'
+      path: '/scheduling'
+      fullPath: '/scheduling'
+      preLoaderRoute: typeof AuthenticatedSchedulingRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/runs/$id': {
+      id: '/runs/$id'
+      path: '/runs/$id'
+      fullPath: '/runs/$id'
+      preLoaderRoute: typeof RunsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/jobs/': {
+      id: '/_authenticated/jobs/'
+      path: '/'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof AuthenticatedJobsIndexRouteImport
+      parentRoute: typeof AuthenticatedJobsRoute
+    }
+    '/_authenticated/jobs/$jobId': {
+      id: '/_authenticated/jobs/$jobId'
+      path: '/$jobId'
+      fullPath: '/jobs/$jobId'
+      preLoaderRoute: typeof AuthenticatedJobsJobIdRouteImport
+      parentRoute: typeof AuthenticatedJobsRoute
+    }
+    '/_authenticated/projects/': {
+      id: '/_authenticated/projects/'
+      path: '/'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof AuthenticatedProjectsIndexRouteImport
+      parentRoute: typeof AuthenticatedProjectsRoute
+    }
+    '/_authenticated/projects/$projectId': {
+      id: '/_authenticated/projects/$projectId'
+      path: '/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof AuthenticatedProjectsProjectIdRouteImport
+      parentRoute: typeof AuthenticatedProjectsRoute
+    }
   }
 }
 
+interface AuthenticatedJobsRouteChildren {
+  AuthenticatedJobsJobIdRoute: typeof AuthenticatedJobsJobIdRoute
+  AuthenticatedJobsIndexRoute: typeof AuthenticatedJobsIndexRoute
+}
+
+const AuthenticatedJobsRouteChildren: AuthenticatedJobsRouteChildren = {
+  AuthenticatedJobsJobIdRoute: AuthenticatedJobsJobIdRoute,
+  AuthenticatedJobsIndexRoute: AuthenticatedJobsIndexRoute,
+}
+
+const AuthenticatedJobsRouteWithChildren =
+  AuthenticatedJobsRoute._addFileChildren(AuthenticatedJobsRouteChildren)
+
+interface AuthenticatedProjectsRouteChildren {
+  AuthenticatedProjectsProjectIdRoute: typeof AuthenticatedProjectsProjectIdRoute
+  AuthenticatedProjectsIndexRoute: typeof AuthenticatedProjectsIndexRoute
+}
+
+const AuthenticatedProjectsRouteChildren: AuthenticatedProjectsRouteChildren = {
+  AuthenticatedProjectsProjectIdRoute: AuthenticatedProjectsProjectIdRoute,
+  AuthenticatedProjectsIndexRoute: AuthenticatedProjectsIndexRoute,
+}
+
+const AuthenticatedProjectsRouteWithChildren =
+  AuthenticatedProjectsRoute._addFileChildren(
+    AuthenticatedProjectsRouteChildren,
+  )
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedAssessmentRoute: typeof AuthenticatedAssessmentRoute
+  AuthenticatedCommercialReportsRoute: typeof AuthenticatedCommercialReportsRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedExperimentPlannerRoute: typeof AuthenticatedExperimentPlannerRoute
+  AuthenticatedFinancialEstimatorRoute: typeof AuthenticatedFinancialEstimatorRoute
+  AuthenticatedIntelligenceRoute: typeof AuthenticatedIntelligenceRoute
+  AuthenticatedJobsRoute: typeof AuthenticatedJobsRouteWithChildren
+  AuthenticatedMarketDataRoute: typeof AuthenticatedMarketDataRoute
+  AuthenticatedMarketResearchRoute: typeof AuthenticatedMarketResearchRoute
+  AuthenticatedNewAssessmentRoute: typeof AuthenticatedNewAssessmentRoute
+  AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRouteWithChildren
+  AuthenticatedQuotationRoute: typeof AuthenticatedQuotationRoute
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
+  AuthenticatedRiskAnalysisRoute: typeof AuthenticatedRiskAnalysisRoute
+  AuthenticatedSchedulingRoute: typeof AuthenticatedSchedulingRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAssessmentRoute: AuthenticatedAssessmentRoute,
+  AuthenticatedCommercialReportsRoute: AuthenticatedCommercialReportsRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedExperimentPlannerRoute: AuthenticatedExperimentPlannerRoute,
+  AuthenticatedFinancialEstimatorRoute: AuthenticatedFinancialEstimatorRoute,
+  AuthenticatedIntelligenceRoute: AuthenticatedIntelligenceRoute,
+  AuthenticatedJobsRoute: AuthenticatedJobsRouteWithChildren,
+  AuthenticatedMarketDataRoute: AuthenticatedMarketDataRoute,
+  AuthenticatedMarketResearchRoute: AuthenticatedMarketResearchRoute,
+  AuthenticatedNewAssessmentRoute: AuthenticatedNewAssessmentRoute,
+  AuthenticatedProjectsRoute: AuthenticatedProjectsRouteWithChildren,
+  AuthenticatedQuotationRoute: AuthenticatedQuotationRoute,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
+  AuthenticatedRiskAnalysisRoute: AuthenticatedRiskAnalysisRoute,
+  AuthenticatedSchedulingRoute: AuthenticatedSchedulingRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  DemoRoute: DemoRoute,
+  EvidenceRoute: EvidenceRoute,
+  LoginRoute: LoginRoute,
+  RunsIdRoute: RunsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

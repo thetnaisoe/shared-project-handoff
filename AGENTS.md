@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Application pages live under `src/routes/_authenticated/`; invention projects use owner-scoped RLS, while legacy drone operations retain their existing team access so existing records are preserved.
+- Invention schemas, deterministic finance and readiness calculations live in `src/lib/lab/domain.ts` with adjacent rule tests so all assessment views use consistent numbers.
+- Invention AI uses authenticated `analysis.functions.ts` and server-only gateway helpers; separate industry-only search requires explicit consent, and search-answer links never count as verified citations.
+- Assessment sections share `ProjectView` and use distinct route files; the public demo reads only the narrowly public demo template, never private projects.
+- Market documents and full-dimensional embeddings are owner-scoped in PostgreSQL; authenticated retrieval attaches source snapshots to assessments so reports remain traceable without exposing another user's library.
+- New submissions derive a display name and legacy-compatible defaults from two validated fields; empty defaults are not evidence of development stage or financial readiness.
