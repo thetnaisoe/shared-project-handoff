@@ -3,6 +3,7 @@ import { AlertTriangle, Info } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ClaimBadge } from "@/components/ClaimBadge";
 import { ClaimDrawer } from "@/components/ClaimDrawer";
+import { LearningPanel } from "@/components/l2m/LearningPanel";
 import { ExperimentsSection } from "@/components/l2m/ExperimentsSection";
 import type { Assessment, Claim, RunState, TornadoBar } from "@/lib/contract";
 import { claimById, formatAmount, formatClaimValue, splitClaimRefs } from "@/lib/ledger";
@@ -111,6 +112,8 @@ export function AssessmentScreen({
           </ul>
         </section>
       )}
+
+      {state.updates.length > 0 && <LearningPanel state={state} onOpenClaim={setOpenId} />}
 
       <ExperimentsSection state={state} onApproved={onApproved} />
 

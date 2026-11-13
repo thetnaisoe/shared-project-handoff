@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+import { api } from "@/lib/api";
 import { Link } from "@tanstack/react-router";
 
 export function TopBar() {
@@ -21,6 +23,25 @@ export function Page({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-background text-foreground">
       <TopBar />
       <main className="mx-auto max-w-5xl px-6 py-10">{children}</main>
+      <footer className="border-t">
+        <div className="mx-auto flex max-w-5xl justify-end px-6 py-4">
+          <button
+            type="button"
+            className="text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+            onClick={async () => {
+              try {
+                await api.resetDemo();
+                toast.success("Demo reset");
+                setTimeout(() => window.location.reload(), 800);
+              } catch (e) {
+                toast.error(e instanceof Error ? e.message : "Could not reset demo");
+              }
+            }}
+          >
+            Reset demo
+          </button>
+        </div>
+      </footer>
     </div>
   );
 }
