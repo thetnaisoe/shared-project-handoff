@@ -166,7 +166,7 @@ function TornadoChart({ bars }: { bars: TornadoBar[] }) {
             <CartesianGrid horizontal={false} stroke="var(--border)" />
             <XAxis type="number" tickFormatter={fmt} domain={["auto", "auto"]} fontSize={12} />
             <YAxis type="category" dataKey="name" width={170} fontSize={12} />
-            <Tooltip formatter={(v) => (Array.isArray(v) ? `${fmt(v[0])} – ${fmt(v[1])}` : String(v))} />
+            <Tooltip formatter={(v) => (Array.isArray(v) ? `${fmt(Number(v[0]))} – ${fmt(Number(v[1]))}` : String(v))} />
             <Bar dataKey="range" fill="var(--primary)" radius={3} />
           </BarChart>
         </ResponsiveContainer>
