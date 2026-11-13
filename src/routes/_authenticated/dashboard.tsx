@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { projectsQuery, demoQuery, getAnalysis, getReadiness } from "@/lib/lab/data";
 import { scoreReadiness } from "@/lib/lab/domain";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { Button } from "@/components/ui/button";
 import { Metrics, Label } from "@/components/lab/project-views";
 import drone from "@/assets/drone-facade.jpg";

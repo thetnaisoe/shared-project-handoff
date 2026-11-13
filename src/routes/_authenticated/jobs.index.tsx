@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { jobsQuery } from "@/lib/data";
 import { eur, JOB_STATUSES } from "@/lib/domain";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { PageHeader, Panel, StatusBadge, DemoTag, Loading } from "@/components/app/ui-bits";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

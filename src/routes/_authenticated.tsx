@@ -39,7 +39,7 @@ function Layout() {
           <SidebarHeader>
             <div className="flex items-center gap-2 px-1 py-2 font-display text-lg font-bold tracking-wide text-sidebar-accent-foreground">
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"><Atom className="h-5 w-5" /></span>
-              <span className="group-data-[collapsible=icon]:hidden">Lab2Market<span className="ml-1 text-xs font-medium text-sidebar-primary">AI</span></span>
+              <span className="group-data-[collapsible=icon]:hidden">Lab2Markt</span>
             </div>
           </SidebarHeader>
           <SidebarContent>

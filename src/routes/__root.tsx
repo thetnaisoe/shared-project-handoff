@@ -82,9 +82,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lab2Market AI — Commercialisation Intelligence" },
+      { title: "Lab2Markt — Commercialisation Intelligence" },
       { name: "description", content: "Evaluate inventions, investigate commercial risks and build evidence-backed experiments." },
-      { property: "og:title", content: "Lab2Market AI — Commercialisation Intelligence" },
+      { property: "og:title", content: "Lab2Markt — Commercialisation Intelligence" },
       { property: "og:description", content: "Evaluate inventions, investigate commercial risks and build evidence-backed experiments." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

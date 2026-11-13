@@ -9,7 +9,7 @@ import { jobsQuery, updateJobStatus } from "@/lib/data";
 import { calculateQuote, eur, REFERENCE_QUOTE, DIRT_OPTIONS, type QuoteInputs } from "@/lib/domain";
 import { usePricingSettings } from "@/lib/settings";
 import { explainQuote } from "@/lib/ai.functions";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { PageHeader, Panel, Field, Notice } from "@/components/app/ui-bits";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

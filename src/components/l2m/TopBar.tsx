@@ -8,7 +8,7 @@ export function TopBar() {
   return (
     <header className="border-b">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link to="/" className="font-semibold text-foreground">Lab to Market</Link>
+        <Link to="/" className="font-semibold text-foreground">Lab2Markt</Link>
         <nav className="flex gap-6">
           <Link to="/" className={link} activeProps={active} activeOptions={{ exact: true }}>New idea</Link>
           <Link to="/evidence" className={link} activeProps={active}>Evidence</Link>

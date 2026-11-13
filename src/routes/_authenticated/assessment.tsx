@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { jobsQuery, uploadPhotos, type Assessment } from "@/lib/data";
 import { ACCESS_OPTIONS, DIRT_OPTIONS, FREQUENCY_OPTIONS, SURFACE_OPTIONS } from "@/lib/domain";
 import { assessBuilding } from "@/lib/ai.functions";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { PageHeader, Panel, Field, StatusBadge, DemoTag } from "@/components/app/ui-bits";
 import { AssessmentCard } from "@/components/app/AssessmentCard";
 import { Button } from "@/components/ui/button";

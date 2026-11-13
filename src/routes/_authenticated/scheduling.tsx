@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { jobsQuery, updateJobStatus, type JobWithBuilding } from "@/lib/data";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { PageHeader, Panel, StatusBadge, Field, Loading } from "@/components/app/ui-bits";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

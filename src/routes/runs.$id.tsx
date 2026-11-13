@@ -3,8 +3,14 @@ import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { screenFor, isWorking } from "@/lib/ledger";
 import { Page, PlaceholderCard } from "@/components/l2m/TopBar";
-import { Gate1Screen, NeedsInputScreen, ProgressScreen, RefusedScreen } from "@/components/l2m/RunScreens";
+import {
+  Gate1Screen,
+  NeedsInputScreen,
+  ProgressScreen,
+  RefusedScreen,
+} from "@/components/l2m/RunScreens";
 import { AssessmentScreen } from "@/components/l2m/AssessmentScreen";
+import { runTitle } from "@/components/l2m/runTitle";
 
 const runQuery = (id: string) =>
   queryOptions({
@@ -14,12 +20,12 @@ const runQuery = (id: string) =>
   });
 
 export const Route = createFileRoute("/runs/$id")({
-  head: ({ params }) => ({
+  head: () => ({
     meta: [
-      { title: `Run ${params.id} — Lab to Market` },
-      { name: "description", content: "Progress and assessment for a Lab to Market run." },
-      { property: "og:title", content: `Run ${params.id} — Lab to Market` },
-      { property: "og:description", content: "Progress and assessment for a Lab to Market run." },
+      { title: "Run — Lab2Markt" },
+      { name: "description", content: "Progress and assessment for a Lab2Markt run." },
+      { property: "og:title", content: "Run — Lab2Markt" },
+      { property: "og:description", content: "Progress and assessment for a Lab2Markt run." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -40,10 +46,11 @@ function RunPage() {
   const { id } = Route.useParams();
   const queryClient = useQueryClient();
   const q = useQuery(runQuery(id));
+  const title = q.data ? runTitle(q.data) : "Your idea";
   return (
     <Page>
       <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-semibold">Run {id}</h1>
+        <h1 className="text-2xl font-semibold">{title}</h1>
         {id.startsWith("demo-") ? (
           <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
             Demo data

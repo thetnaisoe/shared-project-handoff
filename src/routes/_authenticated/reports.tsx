@@ -6,7 +6,7 @@ import { Printer } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { jobsQuery, jobQuery, uploadPhotos, signedUrls, updateJobStatus } from "@/lib/data";
 import { eur } from "@/lib/domain";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { PageHeader, Panel, Field, Notice } from "@/components/app/ui-bits";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

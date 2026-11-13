@@ -6,7 +6,7 @@ import {toast} from "sonner";
 import {Database,FileUp,Trash2,Loader2,Plus} from "lucide-react";
 import {supabase} from "@/integrations/supabase/client";
 import {ingestMarketDocument} from "@/lib/lab/market.functions";
-import {pageHead} from "@/lib/head";
+import {pageHead} from "@/components/l2m/pageHead";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";

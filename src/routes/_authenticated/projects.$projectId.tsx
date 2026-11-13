@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { projectsQuery } from "@/lib/lab/data";
 import { analyseInvention } from "@/lib/lab/analysis.functions";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { Button } from "@/components/ui/button";
 import { ProjectView, VIEW_TITLES, type View } from "@/components/lab/project-views";
 export const Route=createFileRoute("/_authenticated/projects/$projectId")({head:pageHead("Invention assessment","Commercial evidence, risks and next steps for your invention."),component:ProjectPage});

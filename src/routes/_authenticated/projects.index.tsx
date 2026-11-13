@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { projectsQuery, getReadiness } from "@/lib/lab/data";
 import { scoreReadiness } from "@/lib/lab/domain";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { Button } from "@/components/ui/button";
 import { Empty, Label } from "@/components/lab/project-views";
 export const Route = createFileRoute("/_authenticated/projects/")({head:pageHead("My projects","Your invention assessment history and commercial evidence."),component:Projects});

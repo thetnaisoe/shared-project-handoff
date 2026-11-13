@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { submissionInput } from "@/lib/lab/domain";
 import { asJson } from "@/lib/lab/data";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 export const Route=createFileRoute("/_authenticated/new-assessment")({head:pageHead("New assessment","Describe your invention and the problem it solves for a market-informed assessment."),component:NewAssessment});

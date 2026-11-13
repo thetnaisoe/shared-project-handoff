@@ -1,4 +1,4 @@
-# Lab2Market AI
+# Lab2Markt
 
 - [x] Create private invention projects and a stored façade-cleaning drone demo.
 - [x] Build the broader platform navigation, overview, submission and assessment views.
@@ -12,3 +12,4 @@
 - [x] Remove Market Data and Financial Estimator navigation tabs while retaining stored data and report calculations.
 - [x] Add claim type/origin badges and a claim detail drawer.
 - [x] Add ranked experiment cards and the Gate 2 review, edit and approval flow.
+- [x] Rename the app to Lab2Markt across the top bar, page titles and share tags; title run pages by the interpreted technology.

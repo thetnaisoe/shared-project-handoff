@@ -6,7 +6,7 @@ import { Plane, Handshake, Building2, Info, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { experimentsQuery } from "@/lib/data";
 import { calculateMarket, compactEur, DEFAULT_MARKET, READINESS_DIMENSIONS, readinessScore, type EvidenceLevel, type MarketInputs, type ReadinessKey } from "@/lib/domain";
-import { pageHead } from "@/lib/head";
+import { pageHead } from "@/components/l2m/pageHead";
 import { PageHeader, Panel, Field } from "@/components/app/ui-bits";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
