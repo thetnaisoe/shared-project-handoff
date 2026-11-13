@@ -1,5 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Page, PlaceholderCard } from "@/components/l2m/TopBar";
+import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { AlertTriangle, Info, Loader2 } from "lucide-react";
+import { Page } from "@/components/l2m/TopBar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { countWords, MAX_WORDS, startRun } from "@/components/l2m/startRun";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,11 +24,65 @@ export const Route = createFileRoute("/")({
 });
 
 function Intake() {
+  const navigate = useNavigate();
+  const [idea, setIdea] = useState("");
+  const [sector, setSector] = useState("");
+  const [region, setRegion] = useState("");
+  const [trl, setTrl] = useState("");
+  const [busy, setBusy] = useState(false);
+  const words = countWords(idea);
+  const tooLong = words > MAX_WORDS;
+  const trlNum = trl === "" ? null : Number(trl);
+  const trlBad = trlNum !== null && !(Number.isInteger(trlNum) && trlNum >= 1 && trlNum <= 9);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!words || tooLong || trlBad) return;
+    setBusy(true);
+    const id = await startRun({
+      idea_text: idea.trim(),
+      context: { sector: sector.trim() || null, region: region.trim() || null, trl: trlNum },
+    });
+    setBusy(false);
+    if (id) navigate({ to: "/runs/$id", params: { id } });
+  }
+
   return (
     <Page>
       <h1 className="text-2xl font-semibold">New idea</h1>
-      <div className="mt-6"><PlaceholderCard title="Intake" detail="The idea form will go here." /></div>
-      <p className="mt-6 text-sm text-muted-foreground">
+      <form onSubmit={submit} className="mt-6 space-y-5">
+        <div>
+          <Label htmlFor="idea">Your idea</Label>
+          <Textarea id="idea" value={idea} onChange={(e) => setIdea(e.target.value)} rows={12}
+            placeholder="Describe the technology, what it does, and who would pay for it." className="mt-1.5" />
+          <p className={cn("mt-1 text-right text-xs", tooLong ? "text-destructive" : "text-muted-foreground")}>
+            {words.toLocaleString()} / {MAX_WORDS.toLocaleString()} words
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div><Label htmlFor="sector">Sector (optional)</Label>
+            <Input id="sector" value={sector} onChange={(e) => setSector(e.target.value)} className="mt-1.5" /></div>
+          <div><Label htmlFor="region">Region (optional)</Label>
+            <Input id="region" value={region} onChange={(e) => setRegion(e.target.value)} className="mt-1.5" /></div>
+          <div><Label htmlFor="trl">TRL 1–9 (optional)</Label>
+            <Input id="trl" type="number" min={1} max={9} step={1} value={trl}
+              onChange={(e) => setTrl(e.target.value)} className="mt-1.5" aria-invalid={trlBad} />
+            {trlBad && <p className="mt-1 text-xs text-destructive">Enter a whole number from 1 to 9.</p>}</div>
+        </div>
+        <p className="flex gap-2 rounded-md border bg-muted/40 p-3 text-sm text-muted-foreground">
+          <Info className="mt-0.5 h-4 w-4 shrink-0" />
+          We assess technical ideas that have identifiable business customers. We ask for more detail when an idea is
+          too vague, and refuse ideas whose main use is harm or surveillance.
+        </p>
+        <p className="flex gap-2 rounded-md border border-warning bg-warning/10 p-3 text-sm">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
+          Your text is sent to an AI model and a web-search provider. Do not paste confidential IP.
+        </p>
+        <Button type="submit" size="lg" disabled={busy || !words || tooLong || trlBad}>
+          {busy && <Loader2 className="h-4 w-4 animate-spin" />}Start
+        </Button>
+      </form>
+      <p className="mt-8 text-sm text-muted-foreground">
         Demo runs:{" "}
         <Link to="/runs/$id" params={{ id: "demo-gate1" }} className="text-primary underline">demo-gate1</Link>
         {" · "}

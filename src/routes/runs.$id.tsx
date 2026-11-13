@@ -3,6 +3,7 @@ import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { screenFor, isWorking } from "@/lib/ledger";
 import { Page, PlaceholderCard } from "@/components/l2m/TopBar";
+import { Gate1Screen, NeedsInputScreen, ProgressScreen, RefusedScreen } from "@/components/l2m/RunScreens";
 import { AssessmentScreen } from "@/components/l2m/AssessmentScreen";
 
 const runQuery = (id: string) =>
@@ -49,6 +50,19 @@ function RunPage() {
           </p>
         ) : q.error ? (
           <PlaceholderCard title="Could not load run" detail={q.error.message} />
+        ) : screenFor(q.data.run.status) === "progress" ? (
+          <ProgressScreen state={q.data} />
+        ) : screenFor(q.data.run.status) === "gate1" ? (
+          <Gate1Screen
+            key={q.data.run.updated_at}
+            runId={id}
+            state={q.data}
+            onApproved={(nextState) => queryClient.setQueryData(runQuery(id).queryKey, nextState)}
+          />
+        ) : screenFor(q.data.run.status) === "needs_input" ? (
+          <NeedsInputScreen key={id} state={q.data} />
+        ) : screenFor(q.data.run.status) === "refused" ? (
+          <RefusedScreen state={q.data} />
         ) : screenFor(q.data.run.status) === "assessment" ? (
           <AssessmentScreen
             state={q.data}
