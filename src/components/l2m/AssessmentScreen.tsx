@@ -49,6 +49,13 @@ export function AssessmentScreen({
       {decision ? <VerdictBanner d={decision} /> : <VerdictPending />}
       {a.limitations.length > 0 && <LimitationsBanner items={a.limitations} />}
 
+      {!state.claims.some((c) => c.type === "fact") && (
+        <p className="rounded-lg border bg-muted p-4 text-sm text-muted-foreground">
+          No figures could be verified from public sources in time, so every input is an
+          assumption, which is why the experiments matter.
+        </p>
+      )}
+
       {a.evidence_floor_met ? (
         a.headline && (
           <p className="text-xl font-semibold leading-8">

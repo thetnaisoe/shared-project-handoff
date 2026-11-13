@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Check, Circle, Loader2, ShieldAlert, X } from "lucide-react";
 import { toast } from "sonner";
@@ -17,10 +17,29 @@ const STEP_ICON: Record<StepStatus, React.ReactNode> = {
   skipped: <Circle className="h-4 w-4 text-muted-foreground" aria-label="Skipped" />,
 };
 
+function ElapsedTimer() {
+  const [secs, setSecs] = useState(0);
+  useEffect(() => {
+    const start = Date.now();
+    const t = setInterval(() => setSecs(Math.floor((Date.now() - start) / 1000)), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const mm = String(Math.floor(secs / 60)).padStart(2, "0");
+  const ss = String(secs % 60).padStart(2, "0");
+  return <span className="font-mono text-sm tabular-nums text-muted-foreground" aria-label="Elapsed time">{mm}:{ss}</span>;
+}
+
 export function ProgressScreen({ state }: { state: RunState }) {
   return (
     <section className="rounded-lg border bg-card p-5">
-      <h2 className="text-lg font-semibold">Working on it…</h2>
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="text-lg font-semibold">Working on it…</h2>
+        <ElapsedTimer />
+      </div>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Analysing your idea. This takes 1–2 minutes: we read your idea, search the web, check every
+        quote against its page, and run 5,000 simulations.
+      </p>
       {state.steps.length === 0 && <p className="mt-2 text-sm text-muted-foreground">Queued. Starting shortly.</p>}
       <ol className="mt-3 space-y-3">
         {state.steps.map((s) => (

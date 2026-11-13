@@ -110,6 +110,19 @@ export function ExperimentsSection({ state, onApproved }: ExperimentsSectionProp
             onChange={(event) => setThreshold(event.target.value)}
             className="mt-2 max-w-xs"
           />
+          <p className="mt-2 text-sm text-muted-foreground">
+            The revenue in year five that would justify six months of work. Continue only if the
+            chance of reaching it is at least 50%.
+          </p>
+          {(() => {
+            const id = state.run.assessment?.market_model?.output_claim_id;
+            const out = id ? claimById(state, id) : undefined;
+            return out && out.p50 !== null ? (
+              <p className="mt-1 text-sm font-medium">
+                Model median: {formatAmount(out.p50, out.unit)}
+              </p>
+            ) : null;
+          })()}
         </div>
       )}
 

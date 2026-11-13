@@ -10,7 +10,7 @@ const runQuery = (id: string) =>
   queryOptions({
     queryKey: ["run", id],
     queryFn: () => api.getRun(id),
-    refetchInterval: (q) => (q.state.data && isWorking(q.state.data.run.status) ? 2000 : false),
+    refetchInterval: (q) => (q.state.data && isWorking(q.state.data.run.status) ? 3000 : false),
   });
 
 export const Route = createFileRoute("/runs/$id")({
@@ -42,7 +42,18 @@ function RunPage() {
   const q = useQuery(runQuery(id));
   return (
     <Page>
-      <h1 className="text-2xl font-semibold">Run {id}</h1>
+      <div className="flex flex-wrap items-center gap-3">
+        <h1 className="text-2xl font-semibold">Run {id}</h1>
+        {id.startsWith("demo-") ? (
+          <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+            Demo data
+          </span>
+        ) : (
+          <span className="rounded-full bg-teal-soft px-2.5 py-0.5 text-xs font-medium text-teal">
+            Live AI run
+          </span>
+        )}
+      </div>
       <div className="mt-6">
         {q.isPending ? (
           <p role="status" className="text-sm text-muted-foreground">
