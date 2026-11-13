@@ -3,6 +3,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { screenFor, isWorking } from "@/lib/ledger";
 import { Page, PlaceholderCard } from "@/components/l2m/TopBar";
+import { AssessmentScreen } from "@/components/l2m/AssessmentScreen";
 
 const runQuery = (id: string) =>
   queryOptions({
@@ -45,6 +46,8 @@ function RunPage() {
           <p role="status" className="text-sm text-muted-foreground">Loading run…</p>
         ) : q.error ? (
           <PlaceholderCard title="Could not load run" detail={q.error.message} />
+        ) : screenFor(q.data.run.status) === "assessment" ? (
+          <AssessmentScreen state={q.data} />
         ) : (
           <PlaceholderCard title={TITLES[screenFor(q.data.run.status)]} detail={`run.status: ${q.data.run.status}`} />
         )}
