@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AlertTriangle, Info, Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { Page } from "@/components/l2m/TopBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -119,10 +119,6 @@ function Intake() {
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           We assess technical ideas that have identifiable business customers. We ask for more
           detail when an idea is too vague, and refuse ideas whose main use is harm or surveillance.
-        </p>
-        <p className="flex gap-2 rounded-md border border-warning bg-warning/10 p-3 text-sm">
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
-          Your text is sent to an AI model and a web-search provider. Do not paste confidential IP.
         </p>
         <Button type="submit" size="lg" disabled={busy || !words || tooLong || trlBad}>
           {busy && <Loader2 className="h-4 w-4 animate-spin" />}Start
