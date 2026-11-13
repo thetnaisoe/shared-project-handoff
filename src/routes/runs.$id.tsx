@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { screenFor, isWorking } from "@/lib/ledger";
 import { Page, PlaceholderCard } from "@/components/l2m/TopBar";
@@ -37,19 +37,28 @@ const TITLES = {
 
 function RunPage() {
   const { id } = Route.useParams();
+  const queryClient = useQueryClient();
   const q = useQuery(runQuery(id));
   return (
     <Page>
       <h1 className="text-2xl font-semibold">Run {id}</h1>
       <div className="mt-6">
         {q.isPending ? (
-          <p role="status" className="text-sm text-muted-foreground">Loading run…</p>
+          <p role="status" className="text-sm text-muted-foreground">
+            Loading run…
+          </p>
         ) : q.error ? (
           <PlaceholderCard title="Could not load run" detail={q.error.message} />
         ) : screenFor(q.data.run.status) === "assessment" ? (
-          <AssessmentScreen state={q.data} />
+          <AssessmentScreen
+            state={q.data}
+            onApproved={(nextState) => queryClient.setQueryData(runQuery(id).queryKey, nextState)}
+          />
         ) : (
-          <PlaceholderCard title={TITLES[screenFor(q.data.run.status)]} detail={`run.status: ${q.data.run.status}`} />
+          <PlaceholderCard
+            title={TITLES[screenFor(q.data.run.status)]}
+            detail={`run.status: ${q.data.run.status}`}
+          />
         )}
       </div>
     </Page>
