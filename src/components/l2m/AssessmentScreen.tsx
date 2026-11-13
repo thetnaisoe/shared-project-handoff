@@ -34,7 +34,7 @@ export function AssessmentScreen({ state }: { state: RunState }) {
 
   return (
     <div className="space-y-8">
-      {decision && <VerdictBanner d={decision} />}
+      {decision ? <VerdictBanner d={decision} /> : <VerdictPending />}
       {a.limitations.length > 0 && <LimitationsBanner items={a.limitations} />}
 
       {a.evidence_floor_met ? (
@@ -91,6 +91,18 @@ function VerdictBanner({ d }: { d: Decision }) {
         Chance of reaching {formatAmount(d.viability_threshold, EUR)} a year: {formatPercent(d.p_viable)}
       </p>
       {d.reasons.length > 0 && <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{d.reasons.map((r, i) => <li key={i}>{r}</li>)}</ul>}
+      <p className="mt-3 text-xs text-muted-foreground">Decided by code from rules fixed in advance, not by the AI.</p>
+    </section>
+  );
+}
+
+function VerdictPending() {
+  return (
+    <section className="rounded-lg border bg-card p-6">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="text-4xl font-bold tracking-tight text-muted-foreground">No verdict yet</span>
+      </div>
+      <p className="mt-3 text-sm text-muted-foreground">This run does not include a decision, so continue / pivot / kill cannot be shown.</p>
       <p className="mt-3 text-xs text-muted-foreground">Decided by code from rules fixed in advance, not by the AI.</p>
     </section>
   );
