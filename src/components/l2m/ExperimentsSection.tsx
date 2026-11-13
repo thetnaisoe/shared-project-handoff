@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from "react";
-import { Check, LockKeyhole, Pencil, X } from "lucide-react";
+import { Check, Lock, LockKeyhole, Pencil, X } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { ClaimBadge } from "@/components/ClaimBadge";
 import { ClaimDrawer } from "@/components/ClaimDrawer";
@@ -25,9 +27,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api";
-import type { Experiment, ExperimentRule, RunState } from "@/lib/contract";
+import type { Experiment, ExperimentRule, RuleOutcome, RunState } from "@/lib/contract";
 import {
   METHOD_LABEL,
+  canEnterResults,
   claimById,
   formatAmount,
   formatPercent,
@@ -143,6 +146,7 @@ export function ExperimentsSection({ state, onApproved }: ExperimentsSectionProp
               }
               onEdit={() => setEditingId(experiment.id)}
               onOpenClaim={() => setOpenClaimId(experiment.assumption_id)}
+              onResult={onApproved}
             />
           ))}
         </div>
@@ -210,7 +214,15 @@ interface ExperimentCardProps {
   onChoose: (choice: Gate2Choice) => void;
   onEdit: () => void;
   onOpenClaim: () => void;
+  onResult: (state: RunState) => void;
 }
+
+const OUTCOME_STYLE: Record<RuleOutcome, string> = {
+  pending: "bg-muted text-muted-foreground",
+  pass: "bg-success text-success-foreground",
+  fail: "bg-destructive text-destructive-foreground",
+  inconclusive: "bg-warning text-warning-foreground",
+};
 
 function ExperimentCard({
   state,
@@ -221,6 +233,7 @@ function ExperimentCard({
   onChoose,
   onEdit,
   onOpenClaim,
+  onResult,
 }: ExperimentCardProps) {
   const claim = claimById(state, experiment.assumption_id);
   const showingDraft = choice === "edit" && draft;
@@ -232,12 +245,30 @@ function ExperimentCard({
       <div className="flex flex-wrap items-center gap-2">
         <h3 className="mr-auto text-base font-semibold">{METHOD_LABEL[experiment.method]}</h3>
         {experiment.rank === 1 && <Badge>Run next</Badge>}
+        <span
+          className={cn(
+            "rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize",
+            OUTCOME_STYLE[experiment.outcome],
+          )}
+        >
+          {experiment.outcome}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {experiment.successes} of {experiment.trials_done} so far
+        </span>
         {choice && (
           <Badge variant={choice === "reject" ? "destructive" : "secondary"}>
             {choice === "accept" ? "Accepted" : choice === "edit" ? "Edited" : "Rejected"}
           </Badge>
         )}
       </div>
+
+      {experiment.locked_at && (
+        <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+          Rules locked at {new Date(experiment.locked_at).toLocaleString()}
+        </p>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
@@ -342,6 +373,10 @@ function ExperimentCard({
             <X aria-hidden="true" /> Reject
           </Button>
         </div>
+      )}
+
+      {canEnterResults(state, experiment) && (
+        <ResultForm runId={state.run.id} experiment={experiment} onResult={onResult} />
       )}
     </article>
   );
@@ -489,5 +524,107 @@ function RuleNumberInput({
         onChange={(event) => onChange(Number(event.target.value))}
       />
     </div>
+  );
+}
+
+function ResultForm({
+  runId,
+  experiment,
+  onResult,
+}: {
+  runId: string;
+  experiment: Experiment;
+  onResult: (state: RunState) => void;
+}) {
+  const [successes, setSuccesses] = useState("0");
+  const [trials, setTrials] = useState(String(experiment.rule.trials));
+  const [mocked, setMocked] = useState(true);
+  const [note, setNote] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const s = Number(successes);
+    const t = Number(trials);
+    if (!Number.isInteger(s) || !Number.isInteger(t) || s < 0 || t < 1 || s > t) {
+      setError("Use whole numbers, with Yes no greater than Asked.");
+      return;
+    }
+    setError(null);
+    setBusy(true);
+    try {
+      const next = await api.addResult(runId, {
+        experiment_id: experiment.id,
+        successes: s,
+        trials: t,
+        mocked,
+        note: note.trim() || null,
+      });
+      onResult(next);
+      toast.success("Result recorded.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "The result could not be saved.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const id = experiment.id;
+  return (
+    <form onSubmit={submit} className="space-y-3 border-t pt-4">
+      <h4 className="text-sm font-semibold">Enter result</h4>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="space-y-1">
+          <Label htmlFor={`yes-${id}`}>Yes</Label>
+          <Input
+            id={`yes-${id}`}
+            type="number"
+            min={0}
+            step={1}
+            required
+            value={successes}
+            onChange={(e) => setSuccesses(e.target.value)}
+          />
+        </div>
+        <div className="space-y-1">
+          <Label htmlFor={`asked-${id}`}>Asked</Label>
+          <Input
+            id={`asked-${id}`}
+            type="number"
+            min={1}
+            step={1}
+            required
+            value={trials}
+            onChange={(e) => setTrials(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id={`mocked-${id}`}
+          checked={mocked}
+          onCheckedChange={(v) => setMocked(v === true)}
+        />
+        <Label htmlFor={`mocked-${id}`}>This is a mocked demo value</Label>
+      </div>
+      <div className="space-y-1">
+        <Label htmlFor={`note-${id}`}>Note (optional)</Label>
+        <Textarea
+          id={`note-${id}`}
+          rows={2}
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
+      </div>
+      {error && (
+        <p role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      )}
+      <Button type="submit" size="sm" disabled={busy}>
+        {busy ? "Submitting…" : "Submit"}
+      </Button>
+    </form>
   );
 }
