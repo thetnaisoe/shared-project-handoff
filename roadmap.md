@@ -10,3 +10,4 @@
 - [x] Add a private market-data library with ingestion, semantic retrieval and source-grounded assessment context.
 - [x] Test two-field validation, inspect owner-scoped retrieval policies and verify the signed-in market-data-to-assessment flow; remove fictional test records.
 - [x] Remove Market Data and Financial Estimator navigation tabs while retaining stored data and report calculations.
+- [x] Add claim type/origin badges and a claim detail drawer.

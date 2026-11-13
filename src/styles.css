@@ -40,7 +40,12 @@
   --color-warning-soft: var(--warning-soft);
   --color-warning-foreground: var(--warning-foreground);
   --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-success-soft: var(--success-soft);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-experiment: var(--experiment);
+  --color-experiment-foreground: var(--experiment-foreground);
   --color-danger-soft: var(--danger-soft);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -87,7 +92,13 @@
   --warning-soft: oklch(0.92 0.07 85);
   --warning-foreground: oklch(0.42 0.09 60);
   --success: oklch(0.6 0.13 150);
+  --success-foreground: oklch(0.99 0 0);
   --success-soft: oklch(0.93 0.06 150);
+  --info: oklch(0.55 0.18 255);
+  --info-foreground: oklch(0.99 0 0);
+  --info-stripe: oklch(0.99 0 0 / 20%);
+  --experiment: oklch(0.5 0.2 295);
+  --experiment-foreground: oklch(0.99 0 0);
   --danger-soft: oklch(0.94 0.04 25);
   --destructive: oklch(0.58 0.2 27);
   --destructive-foreground: oklch(0.99 0 0);
@@ -134,6 +145,11 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-card);
+}
+
+@utility claim-badge-estimate {
+  background-color: var(--info);
+  background-image: repeating-linear-gradient(135deg, transparent 0 4px, var(--info-stripe) 4px 8px);
 }
 
 @media print {
